@@ -42,14 +42,32 @@
         }
         
         nav a { 
-            margin: 10px; 
-            text-decoration: none; 
-            padding: 10px; 
-            background: white; 
-            color: #007BFF; 
-            border-radius: 5px; 
-            cursor: pointer; 
-        }
+    margin: 10px; 
+    text-decoration: none; 
+    padding: 10px 15px; 
+    background: white; 
+    color: #007BFF; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 16px; /* Ukuran default */
+    display: inline-block;
+}
+
+/* Untuk tablet (iPad) */
+@media (max-width: 1024px) {
+    nav a {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+/* Untuk HP (mobile) */
+@media (max-width: 768px) {
+    nav a {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
         
         .container { 
             padding: 20px; 
