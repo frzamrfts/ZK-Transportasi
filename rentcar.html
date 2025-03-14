@@ -1,0 +1,582 @@
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Agent Travel & Rental Mobil</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            margin: 0; 
+            padding: 0; 
+            position: relative;
+        }
+        
+        header { 
+            background: #007BFF; 
+            color: white; 
+            padding: 15px; 
+            font-size: 24px; 
+            position: relative; 
+        }
+        
+        .logo { 
+            position: absolute; 
+            top: 10px; 
+            width: 50px; 
+            height: auto; 
+            animation: float 1.5s infinite alternate ease-in-out; 
+        }
+        
+        .logo-left { left: 10px; }
+        .logo-right { right: 10px; }
+        
+        @keyframes float {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+        
+        nav { 
+            background: #0056b3; 
+            padding: 10px; 
+        }
+        
+        nav a { 
+            margin: 10px; 
+            text-decoration: none; 
+            padding: 10px; 
+            background: white; 
+            color: #007BFF; 
+            border-radius: 5px; 
+            cursor: pointer; 
+        }
+        
+        .container { 
+            padding: 20px; 
+        }
+        
+        .page { 
+            display: none; 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            min-height: 100vh; 
+            padding: 50px 0; 
+        }
+        
+        .active { display: block; }
+        
+        .image-container { 
+            width: 100%; 
+            max-width: 800px; /* Maksimum lebar agar gambar tidak terlalu besar */
+            margin: 0 auto 15px auto; /* Tengah & beri jarak bawah */
+        }
+        
+        .image-container img { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+            border-radius: 10px; 
+        }
+        
+        /* 📌 Perbaikan Posisi Biodata agar di Tengah */
+        .biodata-container {
+            display: flex;
+            justify-content: center; /* Memastikan elemen berada di tengah horizontal */
+            align-items: center;
+            width: 100%;
+            margin-top: 20px; /* Jarak dari tulisan "Selamat Datang" */
+        }
+        
+        .biodata-box {
+            display: flex;
+            flex-direction: column; /* Mengatur elemen agar tersusun vertikal */
+            align-items: center; /* Pusatkan semua isi di dalamnya */
+            justify-content: center;
+            max-width: 600px;
+            width: 100%;
+            background: linear-gradient(135deg, #007BFF, #00BFFF);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: white;
+            text-align: center;
+        }
+        
+        .biodata-image img {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 3px solid white;
+            margin-bottom: 15px; /* Memberi jarak antara gambar dan teks */
+        }
+        
+        .biodata-info {
+            text-align: center; /* Memastikan teks tetap di tengah */
+        }
+        
+        .biodata-info h3 {
+            margin-top: 0;
+            font-size: 22px;
+        }
+        
+        .biodata-info p {
+            margin: 5px 0;
+        }
+        
+        .biodata-info a {
+            color: yellow;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .biodata-info a:hover {
+            text-decoration: underline;
+        }
+
+        biodata-container {
+            margin-top: 30px; /* Jarak ke atas dari tulisan "Perjalanan Santai" */
+            margin-bottom: 50px; /* Jarak ke bawah dari deskripsi berikutnya */
+        }
+        
+        .image-container {
+            width: 100%;
+            max-width: 800px; /* Menyesuaikan agar tidak terlalu lebar */
+            margin: 0 auto 30px auto; /* Jarak bawah 30px agar tidak terlalu dekat dengan deskripsi */
+            text-align: center;
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+        }
+        
+        .description {
+            text-align: center;
+            margin-bottom: 50px; /* Jarak antar deskripsi agar tidak terlalu rapat */
+            font-size: 18px;
+        }
+        .travel-gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px; /* Memberi jarak antar item */
+        }
+        
+        .travel-item {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            text-align: left;
+            gap: 15px; /* Jarak antara gambar dan teks */
+        }
+        
+        .travel-gallery {
+            display: flex;
+            flex-wrap: nowrap; /* Mencegah elemen turun ke bawah */
+            justify-content: center; /* Pusatkan elemen di tengah */
+            gap: 20px; /* Beri jarak antar item */
+            overflow-x: auto; /* Tambahkan scroll horizontal jika terlalu banyak item */
+            padding: 20px 0;
+        }
+        
+        .travel-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 250px; /* Lebar item */
+            text-align: center;
+            flex-shrink: 0; /* Mencegah item mengecil */
+        }
+        
+        .travel-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        
+        .travel-info {
+            margin-top: 10px;
+        }
+        
+        .travel-info p {
+            margin: 5px 0;
+        }
+        
+        .travel-info a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        .travel-info a:hover {
+            background: #0056b3;
+        }
+
+        .car-list {
+            display: flex;
+            flex-wrap: nowrap; /* Mencegah elemen turun ke bawah */
+            justify-content: center; /* Pusatkan elemen di tengah */
+            gap: 20px; /* Beri jarak antar item */
+            overflow-x: auto; /* Tambahkan scroll horizontal jika terlalu banyak item */
+            padding: 20px 0;
+        }
+        
+        .car-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 250px; /* Lebar item */
+            text-align: center;
+            flex-shrink: 0; /* Mencegah item mengecil */
+        }
+        
+        .car-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        
+        .car-info {
+            margin-top: 10px;
+        }
+        
+        .car-info p {
+            margin: 5px 0;
+        }
+        
+        .car-info a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        .car-info a:hover {
+            background: #0056b3;
+        }
+
+        footer {
+            position: relative;
+            background: linear-gradient(135deg, #0056b3, #007BFF);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .whatsapp-link {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .whatsapp-link:hover {
+            background: #1EBE5D;
+        }
+        
+        /* Efek gelembung animasi */
+        .bubbles {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+        }
+        
+        .bubbles span {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: bubbleAnimation 5s infinite linear;
+        }
+        
+        @keyframes bubbleAnimation {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        /* Posisi gelembung acak */
+        .bubbles span:nth-child(1) { left: 10%; animation-delay: 0s; width: 15px; height: 15px; }
+        .bubbles span:nth-child(2) { left: 30%; animation-delay: 1s; width: 20px; height: 20px; }
+        .bubbles span:nth-child(3) { left: 50%; animation-delay: 2s; width: 25px; height: 25px; }
+        .bubbles span:nth-child(4) { left: 70%; animation-delay: 3s; width: 18px; height: 18px; }
+        .bubbles span:nth-child(5) { left: 90%; animation-delay: 4s; width: 22px; height: 22px; }
+        .bubbles span:nth-child(6) { left: 20%; animation-delay: 1.5s; width: 17px; height: 17px; }
+        .bubbles span:nth-child(7) { left: 40%; animation-delay: 2.5s; width: 23px; height: 23px; }
+        .bubbles span:nth-child(8) { left: 60%; animation-delay: 3.5s; width: 19px; height: 19px; }
+        .bubbles span:nth-child(9) { left: 80%; animation-delay: 4.5s; width: 21px; height: 21px; }
+        .bubbles span:nth-child(10) { left: 95%; animation-delay: 5s; width: 16px; height: 16px; }
+
+        .whatsapp-button {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+        }
+
+        .whatsapp-button:hover {
+            background-color: #1ebc57;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .map-responsive {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; /* Rasio 16:9 */
+        }
+        
+        .map-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <img src="img/zk logo biru.webp" alt="Logo" class="logo logo-left">
+        Travel & Rental Mobil
+        <img src="img/zk logo biru.webp" alt="Logo" class="logo logo-right">
+    </header>
+    <nav>
+        <a onclick="showPage('beranda')">Beranda</a>
+        <a onclick="showPage('sewa')">Sewa Mobil</a>
+        <a onclick="showPage('travel')">Agent Travel</a>
+    </nav>
+    
+    <div id="beranda" class="container page active">
+        <h2>Selamat Datang</h2>
+        
+            <!-- ✅ Perbaikan Struktur Biodata Box -->
+            <div class="biodata-container">
+                <div class="biodata-box">
+                    <div class="biodata-image">
+                        <img src="img/ZK_Transport_Edited_jadi.jpg" alt="Agent Travel">
+                    </div>
+                    <div class="biodata-info">
+                        <h3> ZK Transport</h3>
+                        <p><strong>Alamat:</strong> Dusun II, Pernasidi, Kec. Cilongok, Kabupaten Banyumas, Jawa Tengah 53162</p>
+                        <p><strong>Telepon/WA:</strong> <a href="tel:6285640449527"></a>+62 85640449527</p>                        
+                        <p><strong>Email:</strong> <a href="mailto:muzakkijuliano@gmail.com">muzakkijuliano@gmail.com</a></p>
+                        <p><strong>Pengalaman:</strong> sopir dengan pengalaman yang terampil, melayani perjalanan anda dengan layanan terbaik.</p>
+                        <P>kami juga melayani antar jemput wisata, mantenan dan ziarah,kami menyediakan berbagai transportasi seperti hiace dan elf,untuk semua harga bisa berubah kapan saja,layanan lainnya bisa hubungi kontak whatsapp yang tertera</P>
+                        <p><strong>Pesan via WhatsApp:</strong>  
+                            <a href="https://wa.me/6285640449527?text=Halo%2C%20saya%20ingin%20memesan%20layanan." target="_blank">Chat di WhatsApp</a>  
+                            </p> 
+                    </div>
+                </div>
+            </div>
+           
+            <!-- ✅ Bagian Gambar Setelah Biodata -->
+            <div class="image-container">
+                <img src="img/hiacefull.jpeg" alt="Perjalanan Nyaman">
+            </div>
+            <p>Pilih layanan kami untuk perjalanan yang nyaman dan aman.</p>
+        
+            <div class="image-container">
+                <img src="img/fasilitas.jpeg" alt="Fasilitas Terbaik">
+            </div>
+           <p>Kami menyediakan fasilitas terbaik untuk menjamin kenyamanan Anda selama perjalanan, seperti karaoke dan video player.</p>
+        
+            <div class="image-container">
+                <img src="img/inter.2.jpeg" alt="Sopir Profesional">
+            </div>
+            <p>Sopir kami berpengalaman dan profesional, siap mengantar Anda dengan aman.</p>
+        
+            <div class="image-container">
+                <img src="img/prjlnnyman.jpeg" alt="Armada Lengkap">
+            </div>
+            <p>Perjalanan anda dijamin nyaman.</p>      
+        </div>
+    
+    <div id="sewa" class="container page">
+        <div class="biodata-container">
+            <div class="biodata-box">
+                <div class="biodata-image">
+                    <img src="img/ZK_Transport_Edited_jadi.jpg" alt="Agent Travel">
+                </div>
+                <div class="biodata-info">
+                    <h3> ZK Transport</h3>
+                    <p><strong>Pesan via WhatsApp:</strong>  
+                        <a href="https://wa.me/6285640449527?text=Halo%2C%20saya%20ingin%20memesan%20layanan." target="_blank">Chat di WhatsApp</a>  
+                        </p>                   
+                    <P>kami menyediakan berbagai kendaraan untuk disewakan, untuk pilihan kendaraan lainnya bisa ditanyakan kepada kami langsung, syarat dan ketentuan penyewaan bisa langsung hubungi kami via whatsapp</P>                  
+                </div>
+            </div>
+        </div>
+
+        <div class="car-list">
+            <div class="car-item">
+                <h3>Toyota Avanza</h3>
+                <img src="img/avanza.jpeg" alt="Toyota Avanza">
+                <a href="https://wa.me/6285640449527?text=Saya%20ingin%20menyewa%20toyota%20avanza" target="_blank" class="whatsapp-button">
+                    📲 Pesan via WhatsApp
+                </a>
+            </div>
+            <div class="car-item">
+                <h3>Daihatsu Xenia</h3>
+                <img src="img/xenia.jpeg" alt="Daihatsu Xenia">
+                <a href="https://wa.me/6285640449527?text=Saya%20ingin%20menyewa%20Daihatsu%20Xenia" target="_blank" class="whatsapp-button">
+                    📲 Pesan via WhatsApp
+                </a>
+            </div>
+            <div class="car-item">
+                <h3>Daihatsu Luxio</h3>
+                <img src="img/luxio.jpeg" alt="Daihatsu Xenia">
+                <a href="https://wa.me/6285640449527?text=Saya%20ingin%20menyewa%20Daihatsu%20luxio" target="_blank" class="whatsapp-button">
+                    📲 Pesan via WhatsApp
+                </a>
+            </div>
+            <div class="car-item">
+                <h3>Innova Reborn</h3>
+                <img src="img/reborn.jpg" alt="Daihatsu Xenia">
+                <a href="https://wa.me/6285640449527?text=Saya%20ingin%20menyewa%20innova%20reborn" target="_blank" class="whatsapp-button">
+                    📲 Pesan via WhatsApp
+                </a>
+            </div>
+
+        </div>
+    </div>
+    
+    <div id="travel" class="container page">
+        <div class="biodata-container">
+            <div class="biodata-box">
+                <div class="biodata-image">
+                    <img src="img/ZK_Transport_Edited_jadi.jpg" alt="Agent Travel">
+                </div>
+                <div class="biodata-info">
+                    <h3> ZK Transport</h3>
+                    <p><strong>Pesan via WhatsApp:</strong>  
+                        <a href="https://wa.me/6285640449527?text=Halo%2C%20saya%20ingin%20memesan%20layanan." target="_blank">Chat di WhatsApp</a>  
+                        </p>                   
+                    <P>kami juga melayani antar jemput wisata, mantenan dan ziarah,kami menyediakan berbagai transportasi seperti hiace dan elf,untuk semua harga bisa berubah kapan saja,layanan lainnya bisa hubungi kontak whatsapp yang tertera</P>
+                </div>
+            </div>
+        </div>
+
+        <div class="travel-gallery">
+            <div class="travel-item">
+                <img src="img/hiacefull.jpeg" alt="Jabodetabek ke purwokerto">
+                <p>Jabodetabek ke Purwokerto</p>
+                        <p>250.000</p>
+                        <a href="https://wa.me/6285640449527?text=Saya%20ingin%20memesan%20jabodetabek%20ke%20purwokerto" target="_blank" class="whatsapp-button">
+                            📲 Pesan via WhatsApp
+                        </a>
+            </div>
+            <div class="travel-item">
+                <img src="img/hiacefull.jpeg" alt="Purwokerto ke Semarang">
+                <P>Purwokerto ke Semarang</P>
+                <p>250.000</p>
+                <a href="https://wa.me/6285640449527?text=Saya%20ingin%20memesan%20purwokerto%20ke%20semarang" target="_blank" class="whatsapp-button">
+                    📲 Pesan via WhatsApp
+                </a>
+            </div>
+            <div class="travel-item">
+                <img src="img/hiacefull.jpeg" alt="Melayani Ziarah,">
+                <P>Melayani ziarah Dan Mantenan<P>
+                    <a href="https://wa.me/6285640449527?text=Saya%20ingin%20memesan%20ziarah%20atau%20mantenan" target="_blank" class="whatsapp-button">
+                        📲 Pesan via WhatsApp
+                    </a>
+            </div>
+            <div class="travel-item">
+                <img src="img/hiacefull.jpeg" alt="Melayani Wisata,">
+                <P>Melayani perjalanan wisata<P>
+                    <a href="https://wa.me/6285640449527?text=Saya%20ingin%20memesan%20perjaanan%20wisata" target="_blank" class="whatsapp-button">
+                        📲 Pesan via WhatsApp
+                    </a>
+            </div>
+
+
+        </div>
+    </div>
+    
+    <div class="map-container">
+        <h3>Lokasi Kami</h3>
+        <div class="map-responsive">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d291.8861126345345!2d109.134610097104!3d-7.399183716359828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sid!2sid!4v1741784147926!5m2!1sid!2sid" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>"
+                allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <p>
+                <a href="https://wa.me/6285640449527?text=Halo%20saya%20tertarik%20dengan%20layanan%20anda" 
+                   target="_blank" class="whatsapp-link">
+                   Hubungi Lebih Lanjut Untuk Pesanan Lainnya
+                </a>
+            </p>
+        </div>
+        <div class="bubbles">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </footer>
+</body>
+</html>
